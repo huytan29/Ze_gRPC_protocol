@@ -1,0 +1,15 @@
+add_executable(server
+    server.cpp
+    lib_server/file_transfer.grpc.pb.cc
+    lib_server/file_transfer.pb.cc
+)
+
+# Link các thư viện cần thiết (ví dụ như gRPC)
+target_link_libraries(server
+    gRPC::grpc++
+)
+
+# Nếu bạn cần include các file từ phần protos
+target_include_directories(server
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../protos/file_transfer_lib
+)

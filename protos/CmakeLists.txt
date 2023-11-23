@@ -1,0 +1,17 @@
+# Tạo target cho file đã được build từ protos
+add_library(protos
+    file_transfer_lib/file_transfer.grpc.pb.cc
+    file_transfer_lib/file_transfer.grpc.pb.h
+    file_transfer_lib/file_transfer.pb.cc
+    file_transfer_lib/file_transfer.pb.h
+)
+
+# Link gRPC libraries nếu cần thiết
+target_link_libraries(protos
+    gRPC::grpc++
+)
+
+# Đặt include directories cho target này
+target_include_directories(protos
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)

@@ -1,0 +1,12 @@
+# ninja log v5
+29	6178	7224312402528437	server/CMakeFiles/server.dir/file_transfer.pb.cc.obj	8d36fcc4ecb89110
+52	6219	7224312402840897	client/CMakeFiles/client.dir/file_transfer.pb.cc.obj	7e2ae9602936fd82
+14	6228	7224312402840897	protos/CMakeFiles/protos.dir/file_transfer_lib/file_transfer.pb.cc.obj	a6ebe87de29e5d9
+19	9681	7224312437505275	server/CMakeFiles/server.dir/server.cpp.obj	6078fe456ac161c2
+34	9732	7224312438130348	client/CMakeFiles/client.dir/client.cpp.obj	7af3b3f1617d2994
+24	10459	7224312445317804	server/CMakeFiles/server.dir/file_transfer.grpc.pb.cc.obj	67597d4d36c0510f
+40	10649	7224312447036522	client/CMakeFiles/client.dir/file_transfer.grpc.pb.cc.obj	db6ca38dc4d2bae7
+8	10762	7224312448130305	protos/CMakeFiles/protos.dir/file_transfer_lib/file_transfer.grpc.pb.cc.obj	37d69fdaa37796c
+10763	10906	7224312450161522	protos/libprotos.a	d90552fb9ca4f6aa
+10459	10934	7224312450161522	server/server.exe	bcd66b1b2a7a8e04
+10650	11121	7224312452192098	client/client.exe	e6e0f0002c7c1694

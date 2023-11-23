@@ -1,0 +1,11 @@
+F:/test/transFergRPC/build/CMakeFiles/edit_cache.dir
+F:/test/transFergRPC/build/CMakeFiles/rebuild_cache.dir
+F:/test/transFergRPC/build/protos/CMakeFiles/protos.dir
+F:/test/transFergRPC/build/protos/CMakeFiles/edit_cache.dir
+F:/test/transFergRPC/build/protos/CMakeFiles/rebuild_cache.dir
+F:/test/transFergRPC/build/server/CMakeFiles/server.dir
+F:/test/transFergRPC/build/server/CMakeFiles/edit_cache.dir
+F:/test/transFergRPC/build/server/CMakeFiles/rebuild_cache.dir
+F:/test/transFergRPC/build/client/CMakeFiles/client.dir
+F:/test/transFergRPC/build/client/CMakeFiles/edit_cache.dir
+F:/test/transFergRPC/build/client/CMakeFiles/rebuild_cache.dir

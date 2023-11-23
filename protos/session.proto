@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package session;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (Request) returns (Reply) {}
+
+  //
+  rpc SessionInfor (Request) returns (stream SessionReply) {}
+}
+
+// The request message containing the user's name.
+message Request {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message Reply {
+  string message = 1;
+}
+
+// Test session
+message SessionReply {
+  string filename = 1;
+  bytes data = 2;
+  string session_id = 3;
+  string key = 4;
+}
