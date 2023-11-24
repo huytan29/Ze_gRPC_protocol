@@ -2,6 +2,9 @@ add_executable(server
     server.cpp
     lib_server/file_transfer.grpc.pb.cc
     lib_server/file_transfer.pb.cc
+    lib_server/session.pb.cc
+    lib_server/session.grpc.pb.cc
+
 )
 
 # Link các thư viện cần thiết (ví dụ như gRPC)

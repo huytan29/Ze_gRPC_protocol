@@ -4,6 +4,11 @@ add_library(protos
     file_transfer_lib/file_transfer.grpc.pb.h
     file_transfer_lib/file_transfer.pb.cc
     file_transfer_lib/file_transfer.pb.h
+    session_lib/session.grpc.pb.cc
+    session_lib/session.pb.cc
+    session_lib/session.grpc.pb.h
+    session_lib/session.pb.h
+
 )
 
 # Link gRPC libraries nếu cần thiết

@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
     GetSession(argc, argv);
 
     // Existing file transfer client code
-    std::string server_address("192.168.56.1:50051"); // Replace with the server address
+    std::string server_address("localhost:50051"); // Replace with the server address
     FileTransferClient client(grpc::CreateChannel(server_address, grpc::InsecureChannelCredentials()));
 
     std::string filename = "../../server/hello.txt"; // Replace with your desired filename

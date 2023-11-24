@@ -1,15 +1,28 @@
+# Add thực thi client và các file từ các thư mục lib tương ứng
 add_executable(client
     client.cpp
     lib_client/file_transfer.grpc.pb.cc
     lib_client/file_transfer.pb.cc
+    lib_client/session.grpc.pb.cc
+    lib_client/session.pb.cc
 )
+
+find_package(absl REQUIRED)
+
 
 # Link các thư viện cần thiết (ví dụ như gRPC)
 target_link_libraries(client
     gRPC::grpc++
+    absl::flags 
+    absl::flags_parse
 )
+
 
 # Nếu bạn cần include các file từ phần protos
 target_include_directories(client
-    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../protos/file_transfer_lib
+    PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/../protos/file_transfer_lib
+    ${CMAKE_CURRENT_SOURCE_DIR}/../protos/session_lib
+    "C:/msys64/mingw64/include/absl"
+    "C:/msys64/mingw64/lib"
 )
