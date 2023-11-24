@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <thread>
 
 #include "absl/flags/flag.h"
 #include "absl/flags/parse.h"
@@ -26,7 +27,7 @@ using session::Reply;
 using session::Request;
 using session::SessionReply;
 
-ABSL_FLAG(std::string, target, "localhost:50051", "Server address");
+ABSL_FLAG(std::string, target, "localhost:6000", "Server address");
 
 
 class FileTransferClient {
@@ -57,50 +58,65 @@ private:
 session_an Test;
 class SessionClient {
 public:
-  SessionClient(std::shared_ptr<Channel> channel)
-      : stub_(Greeter::NewStub(channel)) {}
+    SessionClient(std::shared_ptr<Channel> channel) : stub_(Greeter::NewStub(channel)) {}
 
-  void SessionCall() {
-    ClientContext context;
-    Request request;
-    std::shared_ptr<ClientReader<SessionReply>> reader(
-        stub_->SessionInfor(&context, request));
+    // Function to initiate and maintain connection with the server
+    void InitiateConnection() {
+        ClientContext context;
+        Request request;
 
-    SessionReply reply;
-    while (reader->Read(&reply)) {
-      Test.init(reply.key(), reply.session_id());
-      Test.addModel(reply.filename(), reply.data());
+        // Start an initial RPC call to the server
+        std::unique_ptr<ClientReader<SessionReply>> reader(
+            stub_->SessionInfor(&context, request));
+
+        // Continuously read responses from the server
+        SessionReply reply;
+        while (reader->Read(&reply)) {
+            // Process session information here
+            std::cout << "Session ID: " << reply.session_id() << std::endl;
+            std::cout << "Key: " << reply.key() << std::endl;
+            std::cout << "Filename: " << reply.filename() << std::endl;
+            std::cout << "Data: " << reply.data() << std::endl;
+        }
+
+        // Handle the completion of the read operation
+        Status status = reader->Finish();
+        if (status.ok()) {
+            std::cout << "Call Session rpc succeeded." << std::endl;
+        } else {
+            std::cout << "Call Session rpc failed: " << status.error_message() << std::endl;
+        }
     }
-
-    Status status = reader->Finish();
-    if (status.ok()) {
-      std::cout << "Call Session rpc succeeded." << std::endl;
-    } else {
-      std::cout << "Call Session rpc failed: " << status.error_message() << std::endl;
-    }
-  }
 
 private:
-  std::unique_ptr<Greeter::Stub> stub_;
+    std::unique_ptr<Greeter::Stub> stub_;
 };
 
 void GetSession(int argc, char **argv) {
-  absl::ParseCommandLine(argc, argv);
-  std::string target_str = absl::GetFlag(FLAGS_target);
+    absl::ParseCommandLine(argc, argv);
+    std::string target_str = absl::GetFlag(FLAGS_target);
 
-  SessionClient sessionClient(
-      grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
+    // Creating a channel and initiating connection with the server
+    std::shared_ptr<Channel> channel = grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials());
+    SessionClient sessionClient(channel);
 
-  sessionClient.SessionCall();
-  Test.showModel();
+    // Initiate connection and maintain it
+    while (true) {
+        sessionClient.InitiateConnection();
+        // Add some delay before reconnecting
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+    }
 }
+
+
+
 
 int main(int argc, char **argv) {
     // Rest of the code remains the same as before
     GetSession(argc, argv);
 
     // Existing file transfer client code
-    std::string server_address("localhost:50051"); // Replace with the server address
+    std::string server_address("localhost:6000"); // Replace with the server address
     FileTransferClient client(grpc::CreateChannel(server_address, grpc::InsecureChannelCredentials()));
 
     std::string filename = "../../server/hello.txt"; // Replace with your desired filename
